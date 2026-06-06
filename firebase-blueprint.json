@@ -1,0 +1,30 @@
+{
+  "entities": {
+    "storeConfigs": {
+      "title": "Store Config",
+      "description": "E-commerce store configuration and active product catalog for Nepali businesses",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner user authenticated UID" },
+        "name": { "type": "string", "description": "Store name" },
+        "slug": { "type": "string", "description": "URL-friendly slug representation" },
+        "tagline": { "type": "string", "description": "Brand slogan or tagline" },
+        "description": { "type": "string", "description": "Store background bio or profile" },
+        "category": { "type": "string", "description": "Primary industry classification" },
+        "accentColor": { "type": "string", "description": "Hex or class color accent definition" },
+        "paymentGateways": { "type": "array", "description": "List of enabled payment methods" },
+        "courierService": { "type": "string", "description": "Selected courier integration" },
+        "products": { "type": "array", "description": "Array of products in active catalog" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name", "slug", "tagline", "description", "category", "accentColor", "products"]
+    }
+  },
+  "firestore": {
+    "storeConfigs/{userId}": {
+      "schema": "storeConfigs",
+      "description": "Store configuration associated with a specific user account"
+    }
+  }
+}
