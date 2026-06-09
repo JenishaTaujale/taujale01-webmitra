@@ -3,6 +3,9 @@
 @theme {
   --font-serif: "Newsreader", serif;
   --font-sans: "Inter", sans-serif;
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+  --font-mukta: "Mukta", sans-serif;
   
   --color-brand-primary: #366272;
   --color-brand-secondary: #55642b;

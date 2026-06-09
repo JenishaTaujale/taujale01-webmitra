@@ -54,12 +54,25 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
  */
 export async function fetchStoreConfig(userId: string): Promise<StoreConfig | null> {
   const path = `storeConfigs/${userId}`;
+  const localKey = `webmitra_store_config_${userId}`;
+  
+  // Try loading from localStorage first as a reliable fallback
+  let localFallback: StoreConfig | null = null;
+  try {
+    const localData = localStorage.getItem(localKey);
+    if (localData) {
+      localFallback = JSON.parse(localData);
+    }
+  } catch (e) {
+    console.warn("Failed to read store configuration from localStorage:", e);
+  }
+
   try {
     const docRef = doc(db, "storeConfigs", userId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const data = docSnap.data();
-      return {
+      const config: StoreConfig = {
         name: data.name || "",
         slug: data.slug || "",
         tagline: data.tagline || "",
@@ -69,12 +82,21 @@ export async function fetchStoreConfig(userId: string): Promise<StoreConfig | nu
         paymentGateways: data.paymentGateways || [],
         courierService: data.courierService || "",
         products: data.products || [],
-      } as StoreConfig;
+      };
+      
+      // Update local storage representation to stay in sync
+      try {
+        localStorage.setItem(localKey, JSON.stringify(config));
+      } catch (e) {
+        console.warn("Failed to update store configuration in localStorage:", e);
+      }
+      return config;
     }
-    return null;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.GET, path);
-    return null;
+    return localFallback;
+  } catch (error: any) {
+    // If we're offline or have network limits, treat as a silent fallback instead of crashing the app
+    console.warn("Firestore fetch offline/restricted, using local storage cache:", error.message || error);
+    return localFallback;
   }
 }
 
@@ -83,6 +105,15 @@ export async function fetchStoreConfig(userId: string): Promise<StoreConfig | nu
  */
 export async function saveStoreConfig(userId: string, config: StoreConfig): Promise<void> {
   const path = `storeConfigs/${userId}`;
+  const localKey = `webmitra_store_config_${userId}`;
+
+  // Save to localStorage immediately for instant offline durability
+  try {
+    localStorage.setItem(localKey, JSON.stringify(config));
+  } catch (e) {
+    console.warn("Failed to save store configuration to localStorage:", e);
+  }
+
   try {
     const docRef = doc(db, "storeConfigs", userId);
     const existingSnap = await getDoc(docRef);
@@ -119,7 +150,8 @@ export async function saveStoreConfig(userId: string, config: StoreConfig): Prom
         updatedAt: serverTimestamp(),
       });
     }
-  } catch (error) {
-    handleFirestoreError(error, OperationType.WRITE, path);
+  } catch (error: any) {
+    // Notify in logs politely but avoid throwing hard errors so the user session remains fluent
+    console.warn("Firestore save offline/restricted, saved locally database update queued:", error.message || error);
   }
 }

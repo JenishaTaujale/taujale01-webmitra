@@ -16,6 +16,7 @@ import Products from "./pages/Products";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
+import WebsiteArchitectModal from "./components/WebsiteArchitectModal";
 
 export default function App() {
   const [activeTab, setActiveTabState] = useState<"home" | "product" | "about" | "contact">("home");
@@ -26,6 +27,8 @@ export default function App() {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [verificationEmail, setVerificationEmail] = useState<string | null>(null);
+  const [isArchitectOpen, setIsArchitectOpen] = useState(false);
+  const [isCustomStoreBuilt, setIsCustomStoreBuilt] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,6 +52,7 @@ export default function App() {
             .then((loadedConfig) => {
               if (loadedConfig) {
                 setStoreConfig(loadedConfig);
+                setIsCustomStoreBuilt(true);
               }
             })
             .catch((err) => {
@@ -57,6 +61,7 @@ export default function App() {
         }
       } else {
         setUser(null);
+        setIsCustomStoreBuilt(false);
       }
     });
 
@@ -69,6 +74,7 @@ export default function App() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      setIsCustomStoreBuilt(false);
       handleTabChange("home");
     } catch (err) {
       console.error("Logout failed:", err);
@@ -229,8 +235,12 @@ export default function App() {
             >
               <Home 
                 onGetStarted={() => {
-                  setAuthInitialView("signup");
-                  setIsAuthOpen(true);
+                  if (user) {
+                    handleTabChange("product");
+                  } else {
+                    setAuthInitialView("signup");
+                    setIsAuthOpen(true);
+                  }
                 }}
                 onTabChange={handleTabChange}
               />
@@ -246,8 +256,18 @@ export default function App() {
               transition={{ duration: 0.25 }}
             >
               <Products 
+                user={user}
                 storeConfig={storeConfig}
-                onStoreConfigChange={handleStoreConfigChange}
+                isCustomStoreBuilt={isCustomStoreBuilt}
+                onOpenArchitect={() => setIsArchitectOpen(true)}
+                onGetStarted={() => {
+                  if (user) {
+                    setIsArchitectOpen(true);
+                  } else {
+                    setAuthInitialView("signup");
+                    setIsAuthOpen(true);
+                  }
+                }}
               />
             </motion.div>
           )}
@@ -361,44 +381,34 @@ export default function App() {
         onLogout={handleLogout}
       />
 
-      {/* CTA Boxed row */}
-      <section className="py-16 bg-brand-paper border-t border-brand-ink/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-brand-ink rounded-[40px] text-white p-12 md:p-16 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-8 shadow-2xl">
-            <div className="max-w-xl text-left">
-              <h3 className="font-serif text-3xl font-bold text-white mb-2 pb-1.5 border-b border-white/10">Ready to elevate your business?</h3>
-              <p className="text-white/70 text-xs">Join 500+ traditional Nepali merchants using WebMitra to digitalize local checkout sales.</p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <button 
-                onClick={() => {
-                  setAuthInitialView("signup");
-                  setIsAuthOpen(true);
-                }}
-                className="bg-brand-primary px-8 py-3.5 rounded-full font-bold text-xs text-white hover:opacity-90 transition-all cursor-pointer"
-              >
-                Get Started Free
-              </button>
-              <button 
-                onClick={() => handleTabChange("contact")}
-                className="bg-white/10 hover:bg-white/15 px-8 py-3.5 border border-white/10 rounded-full font-bold text-xs text-white transition-all cursor-pointer"
-              >
-                Book Assistance
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Website Architect Modal */}
+      <AnimatePresence>
+        {isArchitectOpen && (
+          <WebsiteArchitectModal 
+            isOpen={isArchitectOpen}
+            onClose={() => setIsArchitectOpen(false)}
+            onStoreCreated={(config) => {
+              handleStoreConfigChange(config);
+              setIsCustomStoreBuilt(true);
+              setIsArchitectOpen(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+
 
       {/* Persistent helper Chatbot */}
       <Chatbot />
 
-      <Footer 
-        onScrollToHome={() => handleTabChange("home")}
-        onScrollToProduct={() => handleTabChange("product")}
-        onScrollToAbout={() => handleTabChange("about")}
-        onScrollToContact={() => handleTabChange("contact")}
-      />
+      {activeTab !== "product" && (
+        <Footer 
+          onScrollToHome={() => handleTabChange("home")}
+          onScrollToProduct={() => handleTabChange("product")}
+          onScrollToAbout={() => handleTabChange("about")}
+          onScrollToContact={() => handleTabChange("contact")}
+        />
+      )}
     </div>
   );
 }

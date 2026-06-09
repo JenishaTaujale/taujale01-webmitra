@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
-import { Award, Users, Landmark, Check } from "lucide-react";
+import { Award, Users, BookOpen, MapPin } from "lucide-react";
 
 export default function About() {
   return (
@@ -35,148 +35,151 @@ export default function About() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="py-24 max-w-7xl mx-auto px-6"
+        className="py-20 md:py-24 max-w-7xl mx-auto px-6 bg-white"
       >
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+          {/* Narrative Content */}
           <div className="space-y-6 text-left">
-            <div className="flex items-center gap-2 text-brand-secondary font-bold text-xs">
-              <Award className="w-5 h-5 text-brand-secondary" />
-              <span className="uppercase tracking-widest">Our Story</span>
+            <div className="flex items-center gap-2 text-[#366272] font-bold text-xs md:text-sm">
+              <BookOpen className="w-5 h-5 text-[#366272]" id="about-story-icon" />
+              <span className="uppercase tracking-widest font-sans font-bold">OUR STORY</span>
             </div>
-            <h2 className="font-serif text-3xl md:text-4xl text-brand-ink font-bold leading-tight">
+            <h2 className="font-serif text-3xl md:text-[42px] text-[#1c1b1b] font-bold leading-tight md:leading-[1.15]">
               Modernizing commerce in the shadow of Everest.
             </h2>
-            <p className="text-brand-ink/65 text-sm leading-relaxed">
-              WebMitra began in a small workspace in Kathmandu with a simple observation: Nepali businesses have world-class traditional organic products but lacked world-class digital selling tools. We set out to change that by building a SaaS ecosystem tailored specifically for the payment and logistical landscapes of Nepal.
-            </p>
-            <p className="text-brand-ink/65 text-sm leading-relaxed">
-              Today, we serve thousands of merchants across Nepal's seven provinces, providing them with advanced order tracking, automatic delivery sheets, the premium AI catalog builder and instant local receipts.
-            </p>
+            <div className="space-y-5 font-sans text-[#1c1b1b]/70 text-sm md:text-base leading-relaxed">
+              <p>
+                WebMitra began in a small workspace in Kathmandu with a simple observation: Nepali businesses have world-class products but lacked world-class digital tools. We set out to change that by building a SaaS ecosystem tailored specifically for the unique logistics and payment landscapes of Nepal.
+              </p>
+              <p>
+                Today, we serve thousands of merchants across the seven provinces, providing them with the intelligence and infrastructure once reserved for global giants.
+              </p>
+            </div>
           </div>
 
-          {/* Core metric count layout */}
-          <div className="grid grid-cols-2 gap-4" id="about-metrics-grid">
-            <div className="bg-white rounded-[24px] p-6 border border-brand-ink/5 shadow-sm min-h-48 flex flex-col justify-end">
-              <div className="text-brand-primary font-serif text-[42px] font-bold leading-none mb-1.5">5k+</div>
-              <div className="font-sans text-[11px] font-semibold text-brand-ink/40 uppercase tracking-widest">Active Merchants</div>
-            </div>
-            <div className="bg-brand-secondary/15 rounded-[24px] p-6 border border-brand-secondary/20 min-h-48 flex flex-col justify-end">
-              <div className="text-brand-secondary font-serif text-[42px] font-bold leading-none mb-1.5">99%</div>
-              <div className="font-sans text-[11px] font-semibold text-brand-secondary uppercase tracking-widest">Local Uptime</div>
-            </div>
-            <div className="bg-amber-100/40 rounded-[24px] p-6 border border-amber-300/30 min-h-48 flex flex-col justify-end">
-              <div className="text-brand-ochre font-serif text-[42px] font-bold leading-none mb-1.5">12M</div>
-              <div className="font-sans text-[11px] font-semibold text-brand-ochre uppercase tracking-widest">NPR Processed</div>
-            </div>
-            <div className="bg-brand-primary/10 rounded-[24px] p-6 border border-brand-primary/20 min-h-48 flex flex-col justify-end">
-              <div className="text-brand-primary font-serif text-[42px] font-bold leading-none mb-1.5">7/7</div>
-              <div className="font-sans text-[11px] font-semibold text-brand-primary uppercase tracking-widest">Provinces Reached</div>
+          {/* Logo Brand Mockup Card */}
+          <div className="flex items-center justify-center p-2" id="about-logo-branded">
+            <div className="bg-white border border-[#1a1a1a]/5 rounded-[32px] p-8 md:p-14 w-full max-w-md shadow-sm hover:shadow-md transition-shadow flex items-center justify-center aspect-[4/3]">
+              <div className="w-full flex justify-center items-center">
+                <svg viewBox="0 0 350 140" className="w-full h-auto select-none pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Beautiful continuous wave & shirorekha from the uploaded logo design */}
+                  <path 
+                    d="M 52,56 C 85,16 142,16 182,54 C 185,57 190,56 195,50 C 205,34 220,32 235,32 L 316,32" 
+                    fill="none" 
+                    stroke="#1d70cd" 
+                    strokeWidth="6.5" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  />
+                  {/* Left curly loop flag for Devanagari vowel sign 'i' in 'मि' */}
+                  <path 
+                    d="M 235,32 C 215,32 198,54 198,82 C 198,102 201,118 206,118 C 211,118 213,110 213,92 L 213,44" 
+                    fill="none" 
+                    stroke="#1d70cd" 
+                    strokeWidth="5.5" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  />
+                  {/* Flared stylized 'W' path */}
+                  <path 
+                    d="M 22,54 C 18,54 16,58 17,66 L 25,114 C 26,118 28,121 32,121 C 36,121 38,118 40,110 L 46,78 L 52,110 C 54,118 56,121 60,121 C 64,121 66,118 67,114 L 75,66 C 76,58 74,54 70,54 L 66,54 C 64,54 65,58 65,61 L 60,102 L 54,64 C 53,58 52,54 48,54 L 45,54 C 41,54 40,58 39,64 L 33,102 L 28,61 C 28,58 29,54 27,54 Z"
+                    fill="#1d70cd"
+                  />
+                  {/* Flared stylized 'E' path */}
+                  <path 
+                    d="M 86,54 C 82,54 81,58 81,66 L 81,110 C 81,118 82,121 86,121 L 118,121 C 124,121 126,118 126,112 L 126,110 C 126,106 122,105 118,105 L 97,105 L 97,91 L 112,91 C 117,91 119,88 119,83 C 119,78 117,75 112,75 L 97,75 L 97,70 C 97,62 110,62 117,62 C 122,62 124,60 124,55 C 124,51 120,54 115,54 Z"
+                    fill="#1d70cd"
+                  />
+                  {/* Flared stylized 'B' path */}
+                  <path 
+                    d="M 136,54 C 132,54 131,58 131,66 L 131,110 C 131,118 132,121 136,121 L 157,121 C 168,121 176,113 176,101 C 176,94 171,89 164,87 C 170,85 174,80 174,73 C 174,61 166,54 153,54 Z M 145,68 L 151,68 C 156,68 159,71 159,76 C 159,81 156,84 151,84 L 145,84 Z M 145,95 L 152,95 C 157,95 160,98 160,104 C 160,110 157,113 152,113 L 145,113 Z"
+                    fill="#1d70cd"
+                  />
+                  {/* Devanagari character 'म' (m) path */}
+                  <path 
+                    d="M 235,46 L 235,84 L 218,84 C 214,84 212,87 212,94 C 212,101 214,103 218,103 L 235,103 L 235,108 C 235,116 232,119 226,119 C 221,119 219,116 219,112 L 219,109 C 219,105 215,104 211,104 C 207,104 205,107 205,112 C 205,120 213,124 225,124 C 237,124 246,118 246,106 L 246,46 Z"
+                    fill="#1d70cd"
+                  />
+                  {/* The central vertical column bar of 'म' */}
+                  <path 
+                    d="M 246,46 L 246,120 C 246,124 249,124 252,124 C 255,124 257,121 257,118 L 257,46 Z"
+                    fill="#1d70cd"
+                  />
+                  {/* Devanagari character 'त्र' (tra) + vertical stems representing the vowel sounds as premium vector shapes */}
+                  {/* Left pointer branches of 'त्र' */}
+                  <path 
+                    d="M 268,78 C 268,78 280,68 285,62 C 289,57 287,54 282,54 C 278,54 274,58 271,62 L 261,72 C 258,75 258,78 261,81 L 273,95 C 276,99 281,99 284,95 C 287,91 285,88 281,84 Z"
+                    fill="#1d70cd"
+                  />
+                  {/* Rightward lower kick/stem of 'त्र' */}
+                  <path 
+                    d="M 267,80 L 284,115 C 286,119 290,121 294,121 C 298,121 300,118 297,113 L 281,80 Z"
+                    fill="#1d70cd"
+                  />
+                  {/* Right vertical column bar of 'त्र' */}
+                  <path 
+                    d="M 288,46 L 288,120 C 288,124 291,124 294,124 C 297,124 299,121 299,118 L 299,46 Z"
+                    fill="#1d70cd"
+                  />
+                  {/* Right vowel stem 'ा' (aa kar) */}
+                  <path 
+                    d="M 310,46 L 310,120 C 310,124 313,124 316,124 C 319,124 321,121 321,118 L 321,46 Z"
+                    fill="#1d70cd"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
       </motion.section>
 
-      {/* Three Pillars Bento Grid */}
+      {/* Three Pillars Section */}
       <motion.section 
         id="about-pillars"
         initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="py-24 bg-brand-paper border-t border-brand-ink/5"
+        className="py-20 md:py-24 bg-white border-t border-[#1a1a1a]/5 animate-fade-in"
       >
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-3xl font-bold text-brand-ink">Rooted in Purpose</h2>
-            <p className="text-brand-ink/45 text-xs mt-2.5">Our mission is defined by three core values</p>
+          <div className="text-center mb-16 space-y-3">
+            <h2 className="font-serif text-3xl md:text-[42px] font-bold text-[#1c1b1b] leading-tight" id="about-pillars-subheading">Rooted in Purpose</h2>
+            <p className="font-sans text-[#1c1b1b]/70 text-base md:text-lg">Our mission is defined by three core pillars.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6" id="about-pillars-grid">
-            <div className="bg-white p-8 rounded-[28px] border border-brand-ink/5 space-y-4 flex flex-col text-left">
-              <div className="w-12 h-12 bg-brand-primary/10 text-brand-primary rounded-xl flex items-center justify-center flex-shrink-0">
-                <Check className="w-6 h-6" />
+          <div className="grid md:grid-cols-3 gap-8" id="about-pillars-grid">
+            {/* Pillar 1: Quality First */}
+            <div className="bg-white p-8 md:p-10 rounded-[32px] border border-[#1a1a1a]/5 hover:shadow-md transition-shadow duration-300 flex flex-col text-left" id="about-pillar-quality">
+              <div className="w-14 h-14 bg-[#eef3f6] text-[#366272] rounded-full flex items-center justify-center mb-6">
+                <Award className="w-7 h-7" />
               </div>
-              <h4 className="font-serif font-bold text-lg">Quality First</h4>
-              <p className="text-xs text-brand-ink/50 leading-relaxed flex-grow">
-                We don't believe in "good enough for Nepal." We build software that rivals international standards while respecting high-altitude nuances.
+              <h3 className="font-serif font-bold text-2xl text-[#1c1b1b] mb-4">Quality First</h3>
+              <p className="font-sans text-sm md:text-base text-[#1c1b1b]/70 leading-relaxed">
+                We don't believe in 'good enough for Nepal.' We build software that rivals Silicon Valley standards while respecting local nuances.
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-[28px] border border-brand-ink/5 space-y-4 flex flex-col text-left">
-              <div className="w-12 h-12 bg-brand-secondary/15 text-brand-secondary rounded-xl flex items-center justify-center flex-shrink-0">
-                <Users className="w-6 h-6" />
+            {/* Pillar 2: Inclusive Growth */}
+            <div className="bg-white p-8 md:p-10 rounded-[32px] border border-[#1a1a1a]/5 hover:shadow-md transition-shadow duration-300 flex flex-col text-left" id="about-pillar-inclusive">
+              <div className="w-14 h-14 bg-[#eef3f6] text-[#366272] rounded-full flex items-center justify-center mb-6">
+                <Users className="w-7 h-7" />
               </div>
-              <h4 className="font-serif font-bold text-lg">Inclusive Growth</h4>
-              <p className="text-xs text-brand-ink/50 leading-relaxed flex-grow">
-                Empowering micro-producers from remote districts just as much as large corporate boutiques in Lalitpur and Pokhara.
+              <h3 className="font-serif font-bold text-2xl text-[#1c1b1b] mb-4">Inclusive Growth</h3>
+              <p className="font-sans text-sm md:text-base text-[#1c1b1b]/70 leading-relaxed">
+                Empowering micro-entrepreneurs from remote villages just as much as corporate offices in Lalitpur and Biratnagar.
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-[28px] border border-brand-ink/5 space-y-4 flex flex-col text-left">
-              <div className="w-12 h-12 bg-amber-100 text-brand-ochre rounded-xl flex items-center justify-center flex-shrink-0">
-                <Landmark className="w-6 h-6" />
+            {/* Pillar 3: Digital Sovereignty */}
+            <div className="bg-white p-8 md:p-10 rounded-[32px] border border-[#1a1a1a]/5 hover:shadow-md transition-shadow duration-300 flex flex-col text-left" id="about-pillar-sovereignty">
+              <div className="w-14 h-14 bg-[#eef3f6] text-[#366272] rounded-full flex items-center justify-center mb-6">
+                <MapPin className="w-7 h-7" />
               </div>
-              <h4 className="font-serif font-bold text-lg">Digital Sovereignty</h4>
-              <p className="text-xs text-brand-ink/50 leading-relaxed flex-grow">
-                Securing Nepal's operational business data safely within our boundaries, keeping systems private and local.
+              <h3 className="font-serif font-bold text-2xl text-[#1c1b1b] mb-4">Digital Sovereignty</h3>
+              <p className="font-sans text-sm md:text-base text-[#1c1b1b]/70 leading-relaxed">
+                Securing Nepal's business data within our borders while providing the connectivity needed to participate in the global economy.
               </p>
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Renaissance City Details Layout */}
-      <motion.section 
-        id="about-renaissance"
-        initial={{ opacity: 0, y: 35 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="py-24 max-w-7xl mx-auto px-6"
-      >
-        <div className="bg-brand-ink text-white rounded-[32px] overflow-hidden">
-          <div className="grid md:grid-cols-2">
-            <div className="p-12 md:p-16 flex flex-col justify-center space-y-6 text-left">
-              <h2 className="font-serif text-3xl font-bold tracking-tight">Nepal's Digital Renaissance</h2>
-              <p className="text-white/70 text-xs leading-relaxed max-w-md">
-                The metrics tell a story of an industrious nation ready to transition to online trade. We are here to provide the cloud framework.
-              </p>
-              
-              <div className="space-y-6 pt-4">
-                <div className="flex gap-4.5">
-                  <span className="font-serif text-[36px] font-bold text-brand-secondary leading-none">73%</span>
-                  <div>
-                    <h5 className="text-[11px] font-bold uppercase tracking-wider text-brand-secondary">Mobile Internet Penetration</h5>
-                    <p className="text-[11px] text-white/60">Over 20 million citizens are connected online directly.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4.5">
-                  <span className="font-serif text-[36px] font-bold text-brand-secondary leading-none">40%</span>
-                  <div>
-                    <h5 className="text-[11px] font-bold uppercase tracking-wider text-brand-secondary">Digital Wallet Surge</h5>
-                    <p className="text-[11px] text-white/60">Year-on-year increase in local digital payments.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4.5">
-                  <span className="font-serif text-[36px] font-bold text-brand-secondary leading-none">2.4M</span>
-                  <div>
-                    <h5 className="text-[11px] font-bold uppercase tracking-wider text-brand-secondary">Registered SMEs & Boutiques</h5>
-                    <p className="text-[11px] text-white/60">Unlocking structured revenue generation across towns.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="h-96 md:h-auto min-h-[380px] relative">
-              <img 
-                alt="Kathmandu Cityscape High Angle View" 
-                className="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGjg01FnFGK_wyN5J97M6K4ZeHt979hVEyEz4fQtUxFWZU9kHBqvfCXk5tFwvICtdFlbumpKbxNVlZBCvWQCZVOrO_Y8RqnHUVPFis4FTGcM-3RTXVfrzoJSd3YAa5OVl6DpubPN3ohdzzNVvBJbMV7n9o5oqdDotef3sfQ3YIwiqj56KgFaOFcRToZVdDhpYXNp6izbKRjy8shyC5YGewufBD0Z-2kLULG22NQ3ESTVKf4b8-fDgo0LQ5P6IRRql0pegfhAFGEbM"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-ink via-transparent to-transparent hidden md:block"></div>
             </div>
           </div>
         </div>

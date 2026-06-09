@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getOrders, createOrder, updateOrderStatus } from "../controllers/orderController";
-import { generateStore } from "../controllers/storeController";
+import { generateStore, conversationalArchitect } from "../controllers/storeController";
 import { chatSupport } from "../controllers/chatController";
 
 const router = Router();
@@ -12,6 +12,7 @@ router.post("/orders/:id/status", updateOrderStatus);
 
 // Store Builder Engine
 router.post("/generate-store", generateStore);
+router.post("/conversational-architect", conversationalArchitect);
 
 // Chatbot Assistant Engine
 router.post("/chat-support", chatSupport);
